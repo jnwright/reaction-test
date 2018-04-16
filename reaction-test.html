@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Reaction Test</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Slabo+27px');
+            
+            #shape {
+                height: 200px;
+                width: 200px;
+                background: red;
+                display: none;
+                position: relative;
+                transform: rotate(45deg);
+                border: 2px solid #000;
+            } 
+            
+            body {
+                text-align: center;
+                font-family: "Slabo 27px";
+                background: linear-gradient(to right, #C9EFD9, #FFF6DD);
+                font-size: 20px;
+            }
+            
+            .bold {
+                font-weight: bold;
+            }
+
+            
+        </style>
+    </head>
+    
+    <body>
+        
+        <h1>Test your reaction!</h1>
+        <p>Click on the diamonds and circles as quickly as you can~</p>
+        <p class="bold">Your time: <span id="time"></span></p>
+    
+        <div id="shape"></div>
+    
+    
+    </body>
+    
+    <script type="text/javascript">
+        
+        var start = new Date().getTime();
+        
+        var item = document.getElementById("shape");
+        
+        function randomColor () {
+            var letters="0123456789ABCDEF".split("");
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            
+            return color;
+        }
+        
+        function newShape() {
+            var top = Math.random() * 400;
+            var left = Math.random() * 500;
+            var width = (Math.random() * 200) + 100;
+            if (Math.random() > 0.5) {
+                item.style.borderRadius = "50%";
+            } else {
+                item.style.borderRadius = "0%";
+            }
+            
+            item.style.backgroundColor = randomColor();
+            item.style.left = left + "px";
+            item.style.top = top + "px";
+            item.style.width = width + "px";
+            item.style.height = width + "px";
+            item.style.display = "block";
+            start = new Date().getTime();
+            
+        }
+        
+        function appearDelay() {
+            
+            setTimeout(newShape, Math.random() * 2000);
+            
+        }
+        
+        appearDelay();
+        
+        item.onclick = function () {
+            item.style.display = "none";
+            var end = new Date().getTime();
+            var time = (end - start)/1000;
+            document.getElementById("time").innerHTML = time + "s";
+            appearDelay();
+        }
+    
+    
+    </script>
+    
+</html>
